@@ -1,0 +1,44 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+
+<div align="left">
+    <hr>
+    {% for ann in announcements_of_user %}
+        {{ann}}
+        <br>
+    {% endfor %}
+    {% for ans in answers_for_user %}
+        {{ans}}
+        <br>
+    {% endfor %}
+    <hr>
+</div>
+<br>
+<div align="center">
+    <h1>Персональная страница пользователя {{request.user.username}}</h1>
+    <br>
+    <button>
+        <a href="/accounts/logout/">Выйти</a>
+    </button>
+    <hr>
+    <h3><u>Мои объявления</u></h3>
+</div>
+<div align="left">
+    {% for ann in announcements_of_user %}
+        {% if request.user.id == ann.author_id %}
+            <a href="http://127.0.0.1:8000/{{ ann.id }}"><h4>{{ ann.title }}</h4></a>
+            <h4>Описание: {{ ann.description }}</h4>
+            <h4>Цена: {{ ann.cost }}</h4>
+            <hr>
+        {% endif %}
+    {% endfor %}
+</div>
+<div align="center">
+    <h3>
+        <u>Отклики на мои объявления</u>
+    </h3>
+</div>
+
+{% endblock content %}
+

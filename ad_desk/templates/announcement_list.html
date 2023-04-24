@@ -1,0 +1,26 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+    <div align="center">
+        <br>
+        <h1>Актуальные объявления</h1>
+        <hr>
+        <form action="" method="get">
+            {{ filterset.form.as_p }}
+            <input type="submit" value="Найти" />
+        </form>
+        <br>
+        {% if announcement_list %}
+            {% for ann in announcement_list %}
+                <div align="left">
+                    <a href="{{ ann.id }}"><h2>{{ ann.title }}</h2></a>
+                    <h4>Описание: {{ ann.description }}</h4>
+                    <h4>Цена: {{ ann.cost }}</h4>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Объявлений нет :(</h3>
+        {% endif %}
+    </div>
+{% endblock content %}

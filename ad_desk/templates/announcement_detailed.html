@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<br>
+<div align="center">
+    <h1>{{ announcement_detailed.title }}</h1>
+    <hr>
+    <div align="left">
+        <h4>Описание: {{ announcement_detailed.description }}</h4>
+        <h4>Цена: {{ announcement_detailed.cost }}</h4>
+        <h4>Категория: {{ announcement_detailed.category }}</h4>
+        <br>
+        <div align="right">
+            <h6>Автор: {{ announcement_detailed.author }}</h6>
+            <h6>Дата размещения: {{ announcement_detailed.datetime|date:"d.m.Y" }}</h6>
+        </div>
+    </div> 
+    <hr> 
+    {% if announcement_detailed.author != request.user %}
+        <form action="{% url 'answer' announcement_detailed.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Откликнуться!" />
+        </form>    
+    {% else %}
+        <form action="{{ announcement_detailed.id }}/change_announcement">
+            <input type="submit" value="Изменить объявление" />
+       </form>
+    {% endif %}
+</div>
+{% endblock content %}
